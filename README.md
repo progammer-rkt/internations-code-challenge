@@ -1,85 +1,68 @@
-# User Management application
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This is an application which will allow us to create users and groups adn thereby associate groups to users.
-This is used to learn Symfony 4 framework
+## Available Scripts
 
-### Highlights
+In the project directory, you can run:
 
-- Symfony 4 is used to develop the API hooks
-- React is used to develop the frontend section
-- Use JWT autherization to perform all activities.
+### `npm start`
 
-__________
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### API - Details
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-- Made upon symfony 4.3
-- Main entities: user, groups, user-group relations
-- User entity has name, country, createdAt, updatedAt attributes
-- Group entity has name, createdAt, updatedAt attributes
-- User-Group relation entity holds user_id, group_id (indicates the relation to the above enttities) attributes
+### `npm test`
 
-API endpoints are shown below:
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-```
- ---------------------------------- -------- -------- ------ ---------------------------
-  Name                               Method   Scheme   Host   Path
- ---------------------------------- -------- -------- ------ ---------------------------
-  adminAuthenticate                  POST     ANY      ANY    /api/login_check
-  createAdminUser                    POST     ANY      ANY    /api/create/admin
-  getGroupList                       GET      ANY      ANY    /api/groups
-  createGroup                        POST     ANY      ANY    /api/group
-  deleteGroupDetails                 DELETE   ANY      ANY    /api/group/{groupId}
-  getGroupDetails                    GET      ANY      ANY    /api/group/{groupId}
-  updateGroup                        PUT      ANY      ANY    /api/group/{groupId}
-  assignGroupToUser                  POST     ANY      ANY    /api/group/assign
-  getUserGroups                      GET      ANY      ANY    /api/user/groups/{userId}
-  getUserList                        GET      ANY      ANY    /api/users
-  createUser                         POST     ANY      ANY    /api/user
-  deleteUserDetails                  DELETE   ANY      ANY    /api/user/{userId}
-  getUserDetails                     GET      ANY      ANY    /api/user/{userId}
-  unAssignGroupToUser                POST     ANY      ANY    /api/group/unassign
-  updateUser                         PUT      ANY      ANY    /api/user/{userId}
- ---------------------------------- -------- -------- ------ ---------------------------
-```
-As we can see above there are 14 API hooks available. Details of each service given below:
+### `npm run build`
 
-##### Admin User Related
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- **adminAuthenticate**: Use to authenticate an admin user. This will provide a JWT in response
--  **createAdminUser**: Create an admin user.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-##### Group Related
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-- **getGroupList**: Provide a collection of groups. We can filter this collection by `limit`, `order` and `start`
-- **createGroup**: Creates a group
-- **deleteGroupDetails**: Deletes a group. When a group is deleted, the user-group relations corresponds to that group also will be removed
-- **updateGroup**: Updates a group's details
-- **getGroupDetails** - Provide details of a specified group
+### `npm run eject`
 
-##### User Related
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-- **getUserList**: Provide list of users. We can filter the results by `limit`, `order` and `start`.
-- **createUser**: Creates a user
-- **updateUser**: Update details of a specified user
-- **deleteUserDetails**: Deletes a user. When a user is deleted, the user-group relations corresponds to that user will be removed.
-- **getUserDetails**: Provides details of a specified user.
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-##### User-Group Relations Related
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-- **assignGroupToUser**: Assign a group to a specified user.
-- **unAssignGroupToUser**: UnAssign a group from a user.
-- **getUserGroups**: This will provide groups list which are associated with a specified user.
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-### Frontend - Details
+## Learn More
 
-- Frontend is developed by React App.
-- Used a bootstrap template in order to get a cool look
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-### How to install
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-- API is available in `backend` branch
-- Front app is available in `frontend` branch
-- Please refer install details in the corresponding branch
+### Code Splitting
 
-Bye...
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
