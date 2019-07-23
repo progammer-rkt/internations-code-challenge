@@ -35,9 +35,3 @@ You need `npm` tool to launch this application
     npm start
     ```
 6. Go to browser and open the url `http://localhost:3000`
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
