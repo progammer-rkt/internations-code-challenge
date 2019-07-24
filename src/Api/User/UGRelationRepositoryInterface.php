@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Api\User;
 
 use App\Api\Search\CriteriaInterface;
+use App\Api\User\Data\UserGroupRelationInterface;
 
 /**
  * UGRelationRepositoryInterface
@@ -40,13 +41,19 @@ interface UGRelationRepositoryInterface
 
     /**
      * @param  \App\Api\Search\CriteriaInterface $criteria
-     * @return \App\Api\User\Data\UserGroupRelationInterface|[]
+     * @return \App\Api\User\Data\UserGroupRelationInterface[]
      */
     public function getBy(CriteriaInterface $criteria);
 
     /**
-     * @param  int $userId
-     * @return array
+     * @param \App\Api\User\Data\UserGroupRelationInterface $userGroupRelation
+     * @return bool true if success
      */
-    public function getUserRelations(int $userId);
+    public function create(UserGroupRelationInterface $userGroupRelation);
+
+    /**
+     * @param \App\Api\User\Data\UserGroupRelationInterface $userGroupRelation
+     * @return bool true if success
+     */
+    public function delete(UserGroupRelationInterface $userGroupRelation);
 }

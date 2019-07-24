@@ -15,7 +15,6 @@ namespace App\Service\User;
 
 use App\Api\Search\CriteriaInterface;
 use App\Api\User\UGRelationRepositoryInterface;
-use App\Api\User\UserManagementInterface;
 use Exception;
 use App\Api\User\Data\UserGroupRelationInterface;
 use App\Core\ServiceProviderInterface;
@@ -39,11 +38,6 @@ class UnAssignGroupServiceProvider implements ServiceProviderInterface
     private $userId;
 
     /**
-     * @var \App\Api\User\UserManagementInterface
-     */
-    private $userManagement;
-
-    /**
      * @var \App\Api\User\UGRelationRepositoryInterface
      */
     private $ugRelationRepository;
@@ -62,22 +56,21 @@ class UnAssignGroupServiceProvider implements ServiceProviderInterface
      * UnAssignGroupServiceProvider constructor.
      *
      * @param \App\Api\User\UGRelationRepositoryInterface $ugRelationRepository
-     * @param \App\Api\User\UserManagementInterface       $userManagement
      * @param \App\Api\Search\CriteriaInterface           $searchCriteria
      */
     public function __construct(
         UGRelationRepositoryInterface $ugRelationRepository,
-        UserManagementInterface $userManagement,
         CriteriaInterface $searchCriteria
     ) {
         $this->ugRelationRepository = $ugRelationRepository;
-        $this->userManagement = $userManagement;
         $this->searchCriteria = $searchCriteria;
 
         $this->searchCriteria
-            ->setSortOrder([UserGroupRelationInterface::ENTITY_ID => CriteriaInterface::DESCENDING])
             ->setStart(0)
-            ->setLimit(100);
+            ->setLimit(100)
+            ->setSortOrder([
+                UserGroupRelationInterface::ENTITY_ID => CriteriaInterface::DESCENDING
+            ]);
     }
 
     /**
@@ -97,7 +90,7 @@ class UnAssignGroupServiceProvider implements ServiceProviderInterface
             // Though we perform deletion in a loop, this will be executed only once
             // as there can be only one-to-one relation exists against user and group
             foreach ($ugRelations as $ugRelation) {
-                $this->userManagement->unAssignGroup($ugRelation);
+                $this->ugRelationRepository->delete($ugRelation);
             }
             return true;
         } catch (Exception $exception) {
@@ -163,11 +156,11 @@ class UnAssignGroupServiceProvider implements ServiceProviderInterface
         }
 
         if ($limit) {
-            $this->searchCriteria->setLimit($limit);
+            $this->searchCriteria->setLimit((int)$limit);
         }
 
         if ($start) {
-            $this->searchCriteria->setStart($start);
+            $this->searchCriteria->setStart((int)$start);
         }
 
         $this->searchCriteria->setFilters($filters);

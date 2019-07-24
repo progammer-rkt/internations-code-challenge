@@ -26,14 +26,8 @@ interface UserManagementInterface
 {
 
     /**
-     * @param  \App\Api\User\Data\UserGroupRelationInterface $ugRelation
-     * @return bool true if success
+     * @param  int $userId
+     * @return \App\Api\User\Data\UserGroupRelationInterface[]
      */
-    public function assignGroup(UserGroupRelationInterface $ugRelation);
-
-    /**
-     * @param  \App\Api\User\Data\UserGroupRelationInterface $ugRelation
-     * @return bool true if success
-     */
-    public function unAssignGroup(UserGroupRelationInterface $ugRelation);
+    public function getUserRelations(int $userId);
 }

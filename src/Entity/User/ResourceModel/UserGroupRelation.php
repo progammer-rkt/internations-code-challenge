@@ -34,12 +34,12 @@ class UserGroupRelation extends ServiceEntityRepository
     /**
      * Create a user-group relation
      *
-     * @param  \App\Entity\UserGroupRelation $ugRelation
+     * @param  \App\Api\User\Data\UserGroupRelationInterface $ugRelation
      * @return \App\Entity\UserGroupRelation|null
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function assign(UserGroupRelationEntity $ugRelation) : ?UserGroupRelationEntity
+    public function assign(UserGroupRelationInterface $ugRelation) : ?UserGroupRelationInterface
     {
         $this->_em->persist($ugRelation);
         $this->_em->flush();
@@ -50,12 +50,12 @@ class UserGroupRelation extends ServiceEntityRepository
     /**
      * Remove a user-group relation
      *
-     * @param  \App\Entity\UserGroupRelation $ugRelation
+     * @param  \App\Api\User\Data\UserGroupRelationInterface $ugRelation
      * @return \App\Entity\User\ResourceModel\UserGroupRelation|null
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function unAssign(UserGroupRelationEntity $ugRelation) : ?self
+    public function unAssign(UserGroupRelationInterface $ugRelation) : ?self
     {
         if ($ugRelation->getId()) {
             $this->_em->remove($ugRelation);

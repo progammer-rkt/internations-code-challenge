@@ -13,7 +13,6 @@
 namespace App\Controller\Admin;
 
 use App\Core\Controller\BaseController;
-use App\Entity\AdminUser;
 use Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
@@ -26,7 +25,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * API endpoint that creates an admin user
  */
-class CreateAdminUer extends BaseController
+class CreateAdminUser extends BaseController
 {
 
     /**
@@ -78,9 +77,9 @@ class CreateAdminUer extends BaseController
                 'token' => $token
             ]);
         } catch (Exception $exception) {
-            return $this->customFailureResponse([
+            return $this->customFailureResponse(
                 'We faced some issue while creating an admin user'
-            ]);
+            );
         }
     }
 }

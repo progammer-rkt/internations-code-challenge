@@ -15,6 +15,7 @@ namespace App\Repository;
 
 use App\Api\Search\CriteriaInterface;
 use App\Api\User\Data\UserGroupRelationInterface;
+use App\Exceptions\EntitySaveException;
 use Exception;
 use App\Api\User\UGRelationRepositoryInterface;
 use App\Entity\User\ResourceModel\UserGroupRelation;
@@ -89,19 +90,42 @@ class UGRelationRepository implements UGRelationRepositoryInterface
     }
 
     /**
-     * Get group relations belong to a user.
+     * Add a user-group relation
      *
-     * @param  int $userId
-     * @return array|mixed
-     * @throws \Exception
+     * @param  \App\Api\User\Data\UserGroupRelationInterface $userManagement
+     * @return bool|null
      */
-    public function getUserRelations(int $userId)
+    public function create(UserGroupRelationInterface $userManagement): ?bool
     {
         try {
-            $ugRelations = $this->ugRelationResourceModel->findGroupsBelongToUser($userId);
-            return $ugRelations;
+            $this->ugRelationResourceModel->assign($userManagement);
+            return true;
         } catch (Exception $exception) {
-            throw $exception;
+            $relationSaveFailureException = new EntitySaveException();
+            $relationSaveFailureException->setMessage(
+                'User assignment to group is failed'
+            );
         }
+        return false;
+    }
+
+    /**
+     * Remove a user-group relation
+     *
+     * @param  \App\Api\User\Data\UserGroupRelationInterface $userManagement
+     * @return bool|null
+     */
+    public function delete(UserGroupRelationInterface $userManagement): ?bool
+    {
+        try {
+            $this->ugRelationResourceModel->unAssign($userManagement);
+            return true;
+        } catch (Exception $exception) {
+            $relationSaveFailureException = new EntitySaveException();
+            $relationSaveFailureException->setMessage(
+                'User un-assignment to group is failed'
+            );
+        }
+        return false;
     }
 }

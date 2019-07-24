@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Service\User;
 
-use App\Api\User\UserManagementInterface;
+use App\Api\User\UGRelationRepositoryInterface;
 use Exception;
 use App\Api\Group\GroupRepositoryInterface;
 use App\Api\User\Data\UserGroupRelationInterface;
@@ -54,9 +54,9 @@ class AssignGroupServiceProvider implements ServiceProviderInterface
     private $userGroupRelation;
 
     /**
-     * @var \App\Api\User\UserManagementInterface
+     * @var \App\Api\User\UGRelationRepositoryInterface
      */
-    private $userManagement;
+    private $ugRelationRepository;
 
     /**
      * AssignGroupServiceProvider constructor.
@@ -64,18 +64,18 @@ class AssignGroupServiceProvider implements ServiceProviderInterface
      * @param \App\Api\User\UserRepositoryInterface         $userRepository
      * @param \App\Api\Group\GroupRepositoryInterface       $groupRepository
      * @param \App\Api\User\Data\UserGroupRelationInterface $userGroupRelation
-     * @param \App\Api\User\UserManagementInterface         $userManagement
+     * @param \App\Api\User\UGRelationRepositoryInterface   $ugRelationRepository
      */
     public function __construct(
         UserRepositoryInterface $userRepository,
         GroupRepositoryInterface $groupRepository,
         UserGroupRelationInterface $userGroupRelation,
-        UserManagementInterface $userManagement
+        UGRelationRepositoryInterface $ugRelationRepository
     ) {
         $this->userRepository = $userRepository;
         $this->groupRepository = $groupRepository;
         $this->userGroupRelation = $userGroupRelation;
-        $this->userManagement = $userManagement;
+        $this->ugRelationRepository = $ugRelationRepository;
     }
 
     /**
@@ -93,7 +93,7 @@ class AssignGroupServiceProvider implements ServiceProviderInterface
             $this->userGroupRelation->setUserId($user->getId());
             $this->userGroupRelation->setGroupId($group->getId());
 
-            return $this->userManagement->assignGroup($this->userGroupRelation);
+            return $this->ugRelationRepository->create($this->userGroupRelation);
         } catch (Exception $exception) {
             throw $exception;
         }

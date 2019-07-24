@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace App\Service\User;
 
+use App\Api\User\UserManagementInterface;
 use App\Api\User\UserRepositoryInterface;
 use App\Core\DataObject;
 use Exception;
 use App\Core\ServiceProviderInterface;
-use App\Repository\UGRelationRepository;
 
 /**
  * CollectUserGroupsServiceProvider
@@ -28,9 +28,9 @@ class CollectUserGroupsServiceProvider implements ServiceProviderInterface
 {
 
     /**
-     * @var \App\Repository\UGRelationRepository
+     * @var \App\Api\User\UserManagementInterface
      */
-    private $ugRelationRepository;
+    private $userManagement;
 
     /**
      * @var \App\Api\User\UserRepositoryInterface
@@ -45,14 +45,14 @@ class CollectUserGroupsServiceProvider implements ServiceProviderInterface
     /**
      * CollectUserGroupsServiceProvider constructor.
      *
-     * @param \App\Repository\UGRelationRepository  $ugRelationRepository
+     * @param \App\Api\User\UserManagementInterface $userManagement
      * @param \App\Api\User\UserRepositoryInterface $userRepository
      */
     public function __construct(
-        UGRelationRepository $ugRelationRepository,
+        UserManagementInterface $userManagement,
         UserRepositoryInterface $userRepository
     ) {
-        $this->ugRelationRepository = $ugRelationRepository;
+        $this->userManagement = $userManagement;
         $this->userRepository = $userRepository;
     }
 
@@ -66,7 +66,7 @@ class CollectUserGroupsServiceProvider implements ServiceProviderInterface
     {
         try {
             $user = $this->userRepository->getById($this->userId);
-            $ugRelations = $this->ugRelationRepository->getUserRelations($user->getId());
+            $ugRelations = $this->userManagement->getUserRelations($user->getId());
             return $this->toArray($ugRelations);
         } catch (Exception $exception) {
             throw $exception;

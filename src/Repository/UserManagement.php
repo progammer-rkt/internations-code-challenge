@@ -30,7 +30,7 @@ class UserManagement implements UserManagementInterface
     /**
      * @var \App\Entity\User\ResourceModel\UserGroupRelation
      */
-    private $ugRelation;
+    private $ugRelationResourceModel;
 
     /**
      * UserManagement constructor.
@@ -39,46 +39,23 @@ class UserManagement implements UserManagementInterface
      */
     public function __construct(UserGroupRelation $ugRelation)
     {
-        $this->ugRelation = $ugRelation;
+        $this->ugRelationResourceModel = $ugRelation;
     }
 
     /**
-     * Add a user-group relation
+     * Get group relations belong to a user.
      *
-     * @param  \App\Api\User\Data\UserGroupRelationInterface $userManagement
-     * @return bool|null
+     * @param  int $userId
+     * @return array|mixed
+     * @throws \Exception
      */
-    public function assignGroup(UserGroupRelationInterface $userManagement): ?bool
+    public function getUserRelations(int $userId)
     {
         try {
-            $this->ugRelation->assign($userManagement);
-            return true;
+            $ugRelations = $this->ugRelationResourceModel->findGroupsBelongToUser($userId);
+            return $ugRelations;
         } catch (Exception $exception) {
-            $relationSaveFailureException = new EntitySaveException();
-            $relationSaveFailureException->setMessage(
-                'User assignment to group is failed'
-            );
+            throw $exception;
         }
-        return false;
-    }
-
-    /**
-     * Remove a user-group relation
-     *
-     * @param  \App\Api\User\Data\UserGroupRelationInterface $userManagement
-     * @return bool|null
-     */
-    public function unAssignGroup(UserGroupRelationInterface $userManagement): ?bool
-    {
-        try {
-            $this->ugRelation->unAssign($userManagement);
-            return true;
-        } catch (Exception $exception) {
-            $relationSaveFailureException = new EntitySaveException();
-            $relationSaveFailureException->setMessage(
-                'User un-assignment to group is failed'
-            );
-        }
-        return false;
     }
 }
