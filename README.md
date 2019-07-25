@@ -33,3 +33,11 @@ This is created based on Symfony 4.3 framework
     curl -X POST -H "Content-Type: application/json" http://localhost/api/login_check -d '{"username":"johndoe","password":"test"}'
     ```
 8. This will provide the token. Now add this token as Bearer in every api request.
+
+
+### Architecture & Request Flow
+
+Request flow and the architecture is shown below:
+
+![API Request Flow Diagram](doc/img/API Request Flow Diagram.jpg)
+
