@@ -39,5 +39,5 @@ This is created based on Symfony 4.3 framework
 
 Request flow and the architecture is shown below:
 
-![API Request Flow Diagram](/doc/img/API Request Flow Diagram.jpg)
+![API Request Flow Diagram](/doc/img/API%20Request%20Flow%20Diagram.jpg)
 
