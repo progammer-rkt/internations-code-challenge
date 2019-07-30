@@ -41,3 +41,8 @@ Request flow and the architecture is shown below:
 
 ![API Request Flow Diagram](/doc/img/API%20Request%20Flow%20Diagram.jpg)
 
+### DB Architecture
+
+DB architecture is shown below:
+
+![DB Schema](/doc/img/User_Management_DB_Schema.png)
